@@ -4,4 +4,4 @@ RUN pip install pandas
 WORKDIR /app
 COPY pipeline.py pipeline.py
 
-ENTRYPOINT ["python","bash"]
+ENTRYPOINT ["python","pipeline.py"]
