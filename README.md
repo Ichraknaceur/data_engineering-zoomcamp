@@ -9,3 +9,4 @@ $ docker build test:pandas .
 we run our image with the following command :
 
 $ docker run -it test:pandas
+##week 2 
