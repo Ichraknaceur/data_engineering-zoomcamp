@@ -1,0 +1,31 @@
+## query 1 
+
+SELECT tpep_pickup_datetime , tpep_dropoff_datetime , total_amount ,
+CONCAT(zpu."Borough" , ' / ' ,  zpu."Zone") AS "pick_up_loc" , 
+CONCAT(zdo."Borough" , ' / ' ,  zdo."Zone") AS "dropoff_loc"
+FROM yellow_taxi_trips t 
+JOIN zones zpu ON t."PULocationID" = zpu."LocationID"
+JOIN zones zdo ON  t."DOLocationID" = zdo."LocationID"
+WHERE "PULocationID" NOT IN (SELECT "LocationID" FROM zones)
+LIMIT 100 
+
+## query 2 
+
+DELETE FROM zones WHERE "LocationID" = 142 ;
+
+## query 3 
+## select  the trips not in zones 
+SELECT tpep_pickup_datetime , tpep_dropoff_datetime,total_amount , "PULocationID" , "DOLocationID"
+FROM yellow_taxi_trips t 
+WHERE "PULocationID" NOT IN (SELECT "LocationID" FROM zones )
+LIMIT 100 ; 
+
+
+#query 4 
+## count the number of trips per day 
+SELECT 
+CAST(tpep_dropoff_datetime AS DATE) as "day", 
+COUNT(1)
+FROM yellow_taxi_trips t 
+GROUP BY  CAST(tpep_dropoff_datetime AS DATE) 
+ORDER BY "count" ASC ;  
